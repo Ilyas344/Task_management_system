@@ -1,0 +1,18 @@
+spring:
+  datasource:
+    url: ${db.url}
+    username: ${db.user}
+    password: ${db.password}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: validate
+  liquibase:
+    change-log: classpath:db/changelog-master.yaml
+    enabled: true
+security:
+  jwt:
+    secret: ${JWT_SECRET}
+    tokenExpiration: 600000
+    refreshTokenExpiration: 6000000
+
