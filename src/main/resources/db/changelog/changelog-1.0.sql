@@ -43,3 +43,36 @@ CREATE TABLE if not exists task_comments (
                                FOREIGN KEY (task_id) REFERENCES tasks(id)
 );
 
+
+CREATE SEQUENCE IF NOT EXISTS users_id_seq;
+
+alter sequence users_id_seq owner to postgres;
+
+alter sequence users_id_seq owned by users.id;
+
+CREATE SEQUENCE IF NOT EXISTS roles_id_seq;
+
+alter sequence roles_id_seq owner to postgres;
+
+alter sequence roles_id_seq owned by roles.id;
+
+CREATE SEQUENCE IF NOT EXISTS tasks_id_seq;
+
+alter sequence tasks_id_seq owner to postgres;
+
+alter sequence tasks_id_seq owned by tasks.id;
+
+CREATE SEQUENCE IF NOT EXISTS roles_seq
+    increment by 50;
+
+alter sequence roles_seq owner to postgres;
+
+CREATE SEQUENCE IF NOT EXISTS tasks_seq
+    increment by 50;
+
+alter sequence tasks_seq owner to postgres;
+
+CREATE SEQUENCE IF NOT EXISTS users_seq
+    increment by 50;
+
+alter sequence users_seq owner to postgres;

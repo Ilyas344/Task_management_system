@@ -1,7 +1,7 @@
 
 spring:
   application:
-    name: Task management system
+    name: Task-management-system
   datasource:
     url: jdbc:postgresql://localhost:5432/postgres
     username: postgres
