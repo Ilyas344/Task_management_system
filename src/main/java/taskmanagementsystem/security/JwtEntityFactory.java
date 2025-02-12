@@ -1,11 +1,11 @@
-package java.taskmanagementsystem.security;
+package taskmanagementsystem.security;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
-import java.taskmanagementsystem.model.security.AppUserDetails;
-import java.taskmanagementsystem.model.user.Role;
-import java.taskmanagementsystem.model.user.User;
+import taskmanagementsystem.model.security.AppUserDetails;
+import taskmanagementsystem.model.user.Role;
+import taskmanagementsystem.model.user.User;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;

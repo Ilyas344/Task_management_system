@@ -1,13 +1,14 @@
-package java.taskmanagementsystem.dto.user;
+package taskmanagementsystem.dto.user;
 
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.hibernate.validator.constraints.Length;
 
-import java.taskmanagementsystem.model.user.Role;
+import taskmanagementsystem.model.user.Role;
 import java.util.Set;
 
 @Getter
@@ -51,6 +52,7 @@ public class UserRequest {
             max = 255,
             message = "Username length must be smaller than 255 symbols."
     )
+    @Email
     private String email;
 
     @Schema(
@@ -67,7 +69,6 @@ public class UserRequest {
             description = "User role"
     )
 
-    private Set<Role> role;
-
+    private Set<RoleDto> role;
 
 }

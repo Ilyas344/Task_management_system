@@ -1,10 +1,10 @@
-package java.taskmanagementsystem.mappers;
+package taskmanagementsystem.mappers;
 
 import org.mapstruct.*;
 
-import java.taskmanagementsystem.dto.user.UserRequest;
-import java.taskmanagementsystem.dto.user.UserResponse;
-import java.taskmanagementsystem.model.user.User;
+import taskmanagementsystem.dto.user.UserRequest;
+import taskmanagementsystem.dto.user.UserResponse;
+import taskmanagementsystem.model.user.User;
 
 
 @Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = MappingConstants.ComponentModel.SPRING)

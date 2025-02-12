@@ -1,4 +1,4 @@
-package java.taskmanagementsystem.model.exception;
+package taskmanagementsystem.model.exception;
 
 public class ResourceNotFoundException extends RuntimeException {
 

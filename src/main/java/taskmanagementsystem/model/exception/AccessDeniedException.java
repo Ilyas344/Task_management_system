@@ -1,4 +1,4 @@
-package java.taskmanagementsystem.model.exception;
+package taskmanagementsystem.model.exception;
 
 public class AccessDeniedException extends RuntimeException {
 
@@ -6,4 +6,7 @@ public class AccessDeniedException extends RuntimeException {
         super();
     }
 
+    public AccessDeniedException(String message) {
+        super(message);
+    }
 }

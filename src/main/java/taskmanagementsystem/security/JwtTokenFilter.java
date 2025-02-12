@@ -1,4 +1,4 @@
-package java.taskmanagementsystem.security;
+package taskmanagementsystem.security;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletRequest;

@@ -1,4 +1,4 @@
-package java.taskmanagementsystem.security;
+package taskmanagementsystem.security;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
@@ -13,12 +13,12 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
 import javax.crypto.SecretKey;
-import java.taskmanagementsystem.dto.auth.JwtResponse;
-import java.taskmanagementsystem.model.exception.AccessDeniedException;
-import java.taskmanagementsystem.model.security.JwtProperties;
-import java.taskmanagementsystem.model.user.Role;
-import java.taskmanagementsystem.model.user.User;
-import java.taskmanagementsystem.service.UserService;
+import taskmanagementsystem.dto.auth.JwtResponse;
+import taskmanagementsystem.model.exception.AccessDeniedException;
+import taskmanagementsystem.model.security.JwtProperties;
+import taskmanagementsystem.model.user.Role;
+import taskmanagementsystem.model.user.User;
+import taskmanagementsystem.service.UserService;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;

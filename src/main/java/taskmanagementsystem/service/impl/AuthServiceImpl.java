@@ -1,17 +1,17 @@
-package java.taskmanagementsystem.service.impl;
+package taskmanagementsystem.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Service;
 
-import java.taskmanagementsystem.dto.auth.JwtRequest;
-import java.taskmanagementsystem.dto.auth.JwtResponse;
-import java.taskmanagementsystem.mappers.JwtMapper;
-import java.taskmanagementsystem.model.user.User;
-import java.taskmanagementsystem.security.JwtTokenProvider;
-import java.taskmanagementsystem.service.AuthService;
-import java.taskmanagementsystem.service.UserService;
+import taskmanagementsystem.dto.auth.JwtRequest;
+import taskmanagementsystem.dto.auth.JwtResponse;
+import taskmanagementsystem.mappers.JwtMapper;
+import taskmanagementsystem.model.user.User;
+import taskmanagementsystem.security.JwtTokenProvider;
+import taskmanagementsystem.service.AuthService;
+import taskmanagementsystem.service.UserService;
 
 
 @Service

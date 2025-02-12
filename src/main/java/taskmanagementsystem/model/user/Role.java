@@ -1,4 +1,4 @@
-package java.taskmanagementsystem.model.user;
+package taskmanagementsystem.model.user;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

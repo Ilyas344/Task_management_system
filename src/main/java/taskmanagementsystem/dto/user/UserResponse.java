@@ -1,6 +1,7 @@
 package taskmanagementsystem.dto.user;
 
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 
 @Getter
@@ -11,8 +12,10 @@ import lombok.*;
 public class UserResponse {
 
 
+    @Schema(description = "User name", example = "John Doe")
     private String username;
 
+    @Schema(description = "User email", example = "johndoe@gmail.com")
     private String email;
 
 

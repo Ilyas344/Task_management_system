@@ -1,4 +1,4 @@
-package java.taskmanagementsystem.model.exception;
+package taskmanagementsystem.model.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -41,6 +41,14 @@ public class RestResponseEntityExceptionHandler {
     public ResponseEntity<String> handleAccessDeniedException(AccessDeniedException exception) {
         return ResponseEntity
                 .status(HttpStatus.FORBIDDEN)
+                .body(exception.getMessage());
+    }
+
+    @ExceptionHandler(TaskNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ResponseEntity<String> handleTaskNotFoundException(TaskNotFoundException exception) {
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
                 .body(exception.getMessage());
     }
 }

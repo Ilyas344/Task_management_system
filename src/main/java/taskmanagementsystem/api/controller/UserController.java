@@ -1,20 +1,22 @@
-package java.taskmanagementsystem.api.controller;
+package taskmanagementsystem.api.controller;
 
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.taskmanagementsystem.api.UserApi;
-import java.taskmanagementsystem.dto.user.UserRequest;
-import java.taskmanagementsystem.dto.user.UserResponse;
-import java.taskmanagementsystem.service.UserService;
+import taskmanagementsystem.api.UserApi;
+import taskmanagementsystem.dto.user.UserRequest;
+import taskmanagementsystem.dto.user.UserResponse;
+import taskmanagementsystem.service.UserService;
 
 
 @Slf4j
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/api/v1/users")
 public class UserController implements UserApi {
 
     private final UserService userService;

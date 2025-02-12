@@ -1,5 +1,5 @@
 databaseChangeLog:
-  - includeAll:
-      path: /Changelog
-      author: Pro100
-      relativeToChangelogFile: true
+  - include:
+      file: db/changelog/changelog-1.0.sql
+  - include:
+      file: db/changelog/changelog-2.0.sql

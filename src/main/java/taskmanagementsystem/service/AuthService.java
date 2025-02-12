@@ -1,8 +1,8 @@
-package java.taskmanagementsystem.service;
+package taskmanagementsystem.service;
 
 
-import java.taskmanagementsystem.dto.auth.JwtRequest;
-import java.taskmanagementsystem.dto.auth.JwtResponse;
+import taskmanagementsystem.dto.auth.JwtRequest;
+import taskmanagementsystem.dto.auth.JwtResponse;
 
 public interface AuthService {
 

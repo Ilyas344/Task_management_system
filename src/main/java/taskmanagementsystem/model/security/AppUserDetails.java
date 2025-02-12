@@ -1,4 +1,4 @@
-package java.taskmanagementsystem.model.security;
+package taskmanagementsystem.model.security;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -8,7 +8,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 
-import java.taskmanagementsystem.model.user.User;
+import taskmanagementsystem.model.user.User;
 import java.util.Collection;
 import java.util.stream.Collectors;
 

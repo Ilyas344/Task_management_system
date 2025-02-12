@@ -1,9 +1,9 @@
-package java.taskmanagementsystem.service;
+package taskmanagementsystem.service;
 
 
-import java.taskmanagementsystem.dto.user.UserRequest;
-import java.taskmanagementsystem.dto.user.UserResponse;
-import java.taskmanagementsystem.model.user.User;
+import taskmanagementsystem.dto.user.UserRequest;
+import taskmanagementsystem.dto.user.UserResponse;
+import taskmanagementsystem.model.user.User;
 
 public interface UserService {
 

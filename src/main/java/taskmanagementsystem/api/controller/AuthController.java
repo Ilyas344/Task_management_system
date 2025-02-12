@@ -1,22 +1,24 @@
-package java.taskmanagementsystem.api.controller;
+package taskmanagementsystem.api.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.taskmanagementsystem.api.AuthApi;
-import java.taskmanagementsystem.dto.auth.JwtRequest;
-import java.taskmanagementsystem.dto.auth.JwtResponse;
-import java.taskmanagementsystem.dto.user.UserRequest;
-import java.taskmanagementsystem.dto.user.UserResponse;
-import java.taskmanagementsystem.service.AuthService;
-import java.taskmanagementsystem.service.UserService;
+import taskmanagementsystem.api.AuthApi;
+import taskmanagementsystem.dto.auth.JwtRequest;
+import taskmanagementsystem.dto.auth.JwtResponse;
+import taskmanagementsystem.dto.user.UserRequest;
+import taskmanagementsystem.dto.user.UserResponse;
+import taskmanagementsystem.service.AuthService;
+import taskmanagementsystem.service.UserService;
 
 
 @Slf4j
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/api/v1/auth")
 public class AuthController implements AuthApi {
 
     private final AuthService authService;

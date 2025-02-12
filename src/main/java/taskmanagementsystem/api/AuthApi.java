@@ -1,4 +1,4 @@
-package java.taskmanagementsystem.api;
+package taskmanagementsystem.api;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.taskmanagementsystem.dto.auth.JwtRequest;
-import java.taskmanagementsystem.dto.auth.JwtResponse;
-import java.taskmanagementsystem.dto.user.UserRequest;
-import java.taskmanagementsystem.dto.user.UserResponse;
+import taskmanagementsystem.dto.auth.JwtRequest;
+import taskmanagementsystem.dto.auth.JwtResponse;
+import taskmanagementsystem.dto.user.UserRequest;
+import taskmanagementsystem.dto.user.UserResponse;
 
 
 @RequestMapping("/api/v1/auth")

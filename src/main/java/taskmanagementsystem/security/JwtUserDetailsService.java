@@ -1,12 +1,12 @@
-package java.taskmanagementsystem.security;
+package taskmanagementsystem.security;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
-import java.taskmanagementsystem.model.user.User;
-import java.taskmanagementsystem.service.UserService;
+import taskmanagementsystem.model.user.User;
+import taskmanagementsystem.service.UserService;
 
 
 @Service

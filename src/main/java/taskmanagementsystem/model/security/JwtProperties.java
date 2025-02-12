@@ -1,4 +1,4 @@
-package java.taskmanagementsystem.model.security;
+package taskmanagementsystem.model.security;
 
 import lombok.Getter;
 import lombok.Setter;

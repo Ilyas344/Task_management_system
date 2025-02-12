@@ -1,6 +1,7 @@
-package java.taskmanagementsystem.dto.auth;
+package taskmanagementsystem.dto.auth;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
@@ -19,6 +20,7 @@ public class JwtRequest {
     @NotNull(
             message = "Username must be not null."
     )
+    @Email
     private String email;
 
     @Schema(
