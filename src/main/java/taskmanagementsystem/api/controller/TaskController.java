@@ -26,6 +26,11 @@ public class TaskController implements TaskApi {
 
 
     @Override
+    public ResponseEntity<TaskResponse> create(TaskRequest dto) {
+        return ResponseEntity.ok(taskService.createTask(dto));
+    }
+
+    @Override
     public ResponseEntity<TaskResponse> update(Long id,TaskRequest dto,Authentication authentication) {
         return ResponseEntity.ok(taskService.updateTask(id, dto,authentication));
     }

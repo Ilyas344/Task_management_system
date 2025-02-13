@@ -7,7 +7,6 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
@@ -21,6 +20,19 @@ import taskmanagementsystem.dto.task.TaskResponse;
 @Validated
 @Tag(name = "Task Controller", description = "Task  API")
 public interface TaskApi {
+    @Operation(summary = "Создание task ")
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Task создан",
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = TaskResponse.class)))
+
+    })
+    @PostMapping("tasks")
+    ResponseEntity<TaskResponse> create(@RequestBody TaskRequest dto);
+
     @Operation(summary = "Обновление task ")
     @ApiResponses(value = {
             @ApiResponse(
@@ -28,7 +40,7 @@ public interface TaskApi {
                     description = "Данные task  обновлены",
                     content = @Content(
                             mediaType = "application/json",
-                            schema = @Schema(implementation = taskmanagementsystem.dto.task.TaskResponse.class)))
+                            schema = @Schema(implementation = TaskResponse.class)))
 
     })
     @PutMapping("tasks")

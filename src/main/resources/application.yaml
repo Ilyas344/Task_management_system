@@ -13,7 +13,7 @@ spring:
       ddl-auto: validate
   liquibase:
     change-log: classpath:db/changelog-master.yaml
-    enabled: true
+
 security:
   jwt:
     secret: adadafllbddlfkgmlafvssdsdsxccxcvddgbxcvvr
