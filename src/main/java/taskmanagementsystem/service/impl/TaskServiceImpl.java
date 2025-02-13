@@ -91,7 +91,6 @@ public class TaskServiceImpl implements TaskService {
         Task task = taskRepository.findById(id)
                 .orElseThrow(() -> new TaskNotFoundException("Task not found with id: " + id));
 
-        // Проверяем права доступа
         if (!(userRole == RoleEnum.ROLE_ADMIN || userRole == RoleEnum.ROLE_MODERATOR) && !task.getAuthor().getUsername().equals(currentUser)) {
             throw new AccessDeniedException("You do not have permission to delete this task");
         }

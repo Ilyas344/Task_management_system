@@ -1,27 +1,20 @@
 package taskmanagementsystem.config;
 
 
-
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.security.SecurityRequirement;
 import io.swagger.v3.oas.models.security.SecurityScheme;
-import io.swagger.v3.oas.models.servers.Server;
 import lombok.RequiredArgsConstructor;
-import lombok.SneakyThrows;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler;
-import org.springframework.security.access.expression.method.MethodSecurityExpressionHandler;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -29,11 +22,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-
+import org.springframework.web.cors.CorsConfiguration;
 import taskmanagementsystem.security.JwtTokenFilter;
 import taskmanagementsystem.security.JwtTokenProvider;
 
-
+import java.util.List;
 
 
 @Configuration
@@ -51,8 +44,7 @@ public class ApplicationConfig {
     }
 
     @Bean
-    @SneakyThrows
-    public AuthenticationManager authenticationManager(final AuthenticationConfiguration configuration) {
+    public AuthenticationManager authenticationManager(final AuthenticationConfiguration configuration) throws Exception {
         return configuration.getAuthenticationManager();
     }
 
@@ -81,13 +73,17 @@ public class ApplicationConfig {
 
 
     @Bean
-    @SneakyThrows
-    public SecurityFilterChain filterChain(
-            final HttpSecurity httpSecurity
-    ) {
+    public SecurityFilterChain filterChain(final HttpSecurity httpSecurity) throws Exception {
         httpSecurity
                 .csrf(AbstractHttpConfigurer::disable)
-                .cors(AbstractHttpConfigurer::disable)
+                .cors(cors -> cors.configurationSource(request -> {
+                    CorsConfiguration config = new CorsConfiguration();
+                    config.setAllowedOrigins(List.of("http://localhost:8080"));
+                    config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+                    config.setAllowedHeaders(List.of("*"));
+                    config.setAllowCredentials(false);
+                    return config;
+                }))
                 .httpBasic(AbstractHttpConfigurer::disable)
                 .sessionManagement(sessionManagement ->
                         sessionManagement
@@ -112,12 +108,12 @@ public class ApplicationConfig {
                                                             .value()
                                             );
                                             response.getWriter()
-                                                    .write("Unauthorized.");
+                                                    .write("Forbidden.");
                                         }))
                 .authorizeHttpRequests(configurer ->
                         configurer.requestMatchers("/api/v1/auth/**")
                                 .permitAll()
-                                .requestMatchers("/swagger-ui/**")
+                                .requestMatchers("/swagger-ui/index.html/**")
                                 .permitAll()
                                 .requestMatchers("/v3/api-docs/**")
                                 .permitAll()
