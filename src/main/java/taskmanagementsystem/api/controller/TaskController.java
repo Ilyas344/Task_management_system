@@ -16,6 +16,9 @@ import taskmanagementsystem.dto.task.TaskRequest;
 import taskmanagementsystem.dto.task.TaskResponse;
 import taskmanagementsystem.service.TaskService;
 
+/**
+ * @author Ilyas
+ */
 @Slf4j
 @RestController
 @RequiredArgsConstructor
@@ -26,26 +29,33 @@ public class TaskController implements TaskApi {
 
 
     @Override
-    public ResponseEntity<TaskResponse> create(TaskRequest dto) {
+    public ResponseEntity<TaskResponse> create(final TaskRequest dto) {
+        log.info("TaskController.create");
         return ResponseEntity.ok(taskService.createTask(dto));
     }
 
     @Override
-    public ResponseEntity<TaskResponse> update(Long id,TaskRequest dto,Authentication authentication) {
+    public ResponseEntity<TaskResponse> update(final Long id,
+                                               final TaskRequest dto,
+                                               final Authentication authentication) {
+        log.info("TaskController.update");
         return ResponseEntity.ok(taskService.updateTask(id, dto,authentication));
     }
 
     @Override
-    public ResponseEntity<TaskResponse> getById(Long id,Authentication authentication) {
-        return ResponseEntity.ok(taskService.getTaskById(id,authentication));
+    public ResponseEntity<TaskResponse> getById(final Long id,
+                                                final Authentication authentication) {
+        log.info("TaskController.getById");
+        return ResponseEntity.ok(taskService.getTaskById(id));
     }
 
     @Override
     public ResponseEntity<Page<TaskResponse>> getAllTask(
-            @RequestParam(defaultValue = "1") int page,
-            @RequestParam(defaultValue = "10") int size,
-            Authentication authentication) {
+            @RequestParam(defaultValue = "1") final int page,
+            @RequestParam(defaultValue = "10") final int size,
+            final Authentication authentication) {
 
+        log.info("TaskController.getAllTask");
         Pageable pageable = PageRequest.of(page - 1, size, Sort.by("id").ascending());
         Page<TaskResponse> taskPage = taskService.getAll(pageable, authentication);
 
@@ -53,8 +63,9 @@ public class TaskController implements TaskApi {
     }
 
     @Override
-    public ResponseEntity<Void> deleteById(Long id,Authentication authentication) {
-        taskService.delete(id, authentication);
+    public ResponseEntity<Void> deleteById(final Long id) {
+        log.info("TaskController.deleteById");
+        taskService.delete(id);
         return ResponseEntity.noContent().build();
     }
 }

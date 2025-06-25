@@ -1,5 +1,5 @@
 package taskmanagementsystem.model.task;
 
 public enum Status {
-    PENDING, IN_PROGRESS, COMPLETED
+    TO_DO, PENDING, IN_PROGRESS, COMPLETED
 }

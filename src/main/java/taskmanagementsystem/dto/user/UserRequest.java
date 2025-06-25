@@ -8,7 +8,6 @@ import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.hibernate.validator.constraints.Length;
 
-import taskmanagementsystem.model.user.Role;
 import java.util.Set;
 
 @Getter
@@ -19,14 +18,6 @@ import java.util.Set;
 @Schema(description = "User DTO")
 public class UserRequest {
 
-    @Schema(
-            description = "User id",
-            example = "1"
-    )
-    @NotNull(
-            message = "Id must be not null."
-    )
-    private Long id;
 
     @Schema(
             description = "User name",

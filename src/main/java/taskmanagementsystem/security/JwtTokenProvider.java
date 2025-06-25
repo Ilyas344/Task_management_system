@@ -8,17 +8,18 @@ import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
-
-import javax.crypto.SecretKey;
 import taskmanagementsystem.dto.auth.JwtResponse;
 import taskmanagementsystem.model.exception.AccessDeniedException;
 import taskmanagementsystem.model.security.JwtProperties;
 import taskmanagementsystem.model.user.Role;
 import taskmanagementsystem.model.user.User;
 import taskmanagementsystem.service.UserService;
+
+import javax.crypto.SecretKey;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
@@ -32,7 +33,7 @@ public class JwtTokenProvider {
 
     private final JwtProperties jwtProperties;
 
-    private final UserDetailsService userDetailsService;
+
     private final UserService userService;
     private SecretKey key;
 
@@ -69,10 +70,8 @@ public class JwtTokenProvider {
                 .collect(Collectors.toList());
     }
 
-    public String createRefreshToken(
-            final Long userId,
-            final String username
-    ) {
+    public String createRefreshToken(final Long userId,
+                                     final String username) {
         Claims claims = Jwts.claims()
                 .subject(username)
                 .add("id", userId)
@@ -86,9 +85,7 @@ public class JwtTokenProvider {
                 .compact();
     }
 
-    public JwtResponse refreshUserTokens(
-            final String refreshToken
-    ) {
+    public JwtResponse refreshUserTokens(final String refreshToken) {
 
         if (!isValid(refreshToken)) {
             throw new AccessDeniedException();
@@ -106,9 +103,7 @@ public class JwtTokenProvider {
                 .build();
     }
 
-    public boolean isValid(
-            final String token
-    ) {
+    public boolean isValid(final String token) {
         Jws<Claims> claims = Jwts
                 .parser()
                 .verifyWith(key)
@@ -119,9 +114,7 @@ public class JwtTokenProvider {
                 .after(new Date());
     }
 
-    private String getId(
-            final String token
-    ) {
+    private String getId(final String token) {
         return Jwts
                 .parser()
                 .verifyWith(key)
@@ -131,9 +124,7 @@ public class JwtTokenProvider {
                 .get("id", String.class);
     }
 
-    private String getUsername(
-            final String token
-    ) {
+    private String getUsername(final String token) {
         return Jwts
                 .parser()
                 .verifyWith(key)
@@ -143,13 +134,21 @@ public class JwtTokenProvider {
                 .getSubject();
     }
 
-    public Authentication getAuthentication(
-            final String token
-    ) {
+    public Authentication getAuthentication(final String token) {
+        List<String> roles = getRoles(token);
+
+        List<GrantedAuthority> authorities = roles.stream()
+                .map(SimpleGrantedAuthority::new)
+                .collect(Collectors.toList());
+
+
         String username = getUsername(token);
-        UserDetails userDetails = userDetailsService.loadUserByUsername(
-                username
+        UserDetails userDetails = new org.springframework.security.core.userdetails.User(
+                username,
+                "",
+                authorities
         );
+
         return new UsernamePasswordAuthenticationToken(
                 userDetails,
                 "",
@@ -157,4 +156,13 @@ public class JwtTokenProvider {
         );
     }
 
+    private List<String> getRoles(final String token) {
+        Claims claims = Jwts
+                .parser()
+                .verifyWith(key)
+                .build()
+                .parseSignedClaims(token)
+                .getPayload();
+        return claims.get("roles", List.class);
+    }
 }

@@ -2,11 +2,12 @@ package taskmanagementsystem.model.user;
 
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.data.jpa.domain.AbstractPersistable;
-import taskmanagementsystem.model.security.AppUserDetails;
 
-import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -17,7 +18,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Table(name = "users")
 public class User extends AbstractPersistable<Long>   {
-    @Column(unique = true,nullable = false)
+    @Column(nullable = false)
     private String username;
     @Column(unique = true,nullable = false)
     private String email;

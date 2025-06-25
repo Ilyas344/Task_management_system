@@ -59,7 +59,7 @@ public class ApplicationConfig {
                                 .addSecuritySchemes("bearerAuth",
                                         new SecurityScheme()
                                                 .type(SecurityScheme.Type.HTTP)
-                                                .scheme("bearer")
+                                                .scheme("Bearer")
                                                 .bearerFormat("JWT")
                                 )
                 )
@@ -69,7 +69,6 @@ public class ApplicationConfig {
                         .version("1.0")
                 );
     }
-
 
 
     @Bean
@@ -110,14 +109,12 @@ public class ApplicationConfig {
                                             response.getWriter()
                                                     .write("Forbidden.");
                                         }))
-                .authorizeHttpRequests(configurer ->
-                        configurer.requestMatchers("/api/v1/auth/**")
-                                .permitAll()
-                                .requestMatchers("/swagger-ui/**")
-                                .permitAll()
-                                .requestMatchers("/v3/api-docs/**")
-                                .permitAll()
-                                .anyRequest().authenticated())
+                .authorizeHttpRequests(authorizeHttpRequests -> authorizeHttpRequests
+                        .requestMatchers("/api/v1/auth/**").permitAll()
+                        .requestMatchers("/api/v1/users/**").hasRole("ADMIN")
+                        .requestMatchers("/swagger-ui/**").permitAll()
+                        .requestMatchers("/v3/api-docs/**").permitAll()
+                        .anyRequest().authenticated())
                 .anonymous(AbstractHttpConfigurer::disable)
                 .addFilterBefore(new JwtTokenFilter(tokenProvider),
                         UsernamePasswordAuthenticationFilter.class);

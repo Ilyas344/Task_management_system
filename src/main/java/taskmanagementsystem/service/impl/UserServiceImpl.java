@@ -13,7 +13,6 @@ import taskmanagementsystem.mappers.RoleMapper;
 import taskmanagementsystem.mappers.UserMapper;
 import taskmanagementsystem.model.exception.ResourceNotFoundException;
 import taskmanagementsystem.model.user.Role;
-import taskmanagementsystem.model.user.RoleEnum;
 import taskmanagementsystem.model.user.User;
 import taskmanagementsystem.repository.RoleRepository;
 import taskmanagementsystem.repository.UserRepository;
@@ -31,7 +30,6 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final UserMapper userMap;
-    private final RoleMapper roleMap;
     private final RoleRepository roleRepository;
 
 
@@ -66,34 +64,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserResponse update(final UserRequest newUser) {
-        User oldUser = userRepository.findById(newUser.getId())
+    public UserResponse update(final Long id, final UserRequest newUser) {
+        User oldUser = userRepository.findById(id)
                 .orElseThrow(() ->
                         new ResourceNotFoundException("User not found."));
-        Role role = roleMap.toEntity(newUser.getRole().iterator().next());
-        role.setName(RoleEnum.ROLE_USER);
-        oldUser.setPassword(passwordEncoder.encode(newUser.getPassword()));
-        oldUser.setEmail(newUser.getEmail());
-        oldUser.setUsername(newUser.getUsername());
-        oldUser.setRoles(Set.of(role));
-        userRepository.save(oldUser);
+
+        newUser.setPassword(passwordEncoder.encode(newUser.getPassword()));
+        userRepository.save(userMap.updateUserFromDto(newUser, oldUser));
         return userMap.userMapper(oldUser);
 
     }
 
-
-//    @Override
-//    public UserResponse create(final UserRequest userDto) {
-//            log.info("Creating new user with username: {} and email: {}", userDto.getUsername(), userDto.getEmail());
-//        User user = userMap.userDtoMapper(userDto);
-//        Role role = roleMap.toEntity(userDto.getRole().iterator().next());
-//
-//
-//        user.setPassword(passwordEncoder.encode(user.getPassword()));
-//
-//        user.setRoles(Set.of(role));
-//        return userMap.userMapper(userRepository.save(user));
-//    }
 
     @Override
     public UserResponse create(final UserRequest userDto) {
@@ -119,6 +100,12 @@ public class UserServiceImpl implements UserService {
         return userMap.userMapper(savedUser);
     }
 
+
+    public boolean isOwner(String username, Long userId) {
+        return userRepository.findById(userId)
+                .map(user -> user.getUsername().equals(username))
+                .orElse(false);
+    }
 
 
     @Override

@@ -15,10 +15,12 @@ public interface UserService {
 
     User getByEmail(String username);
 
-    UserResponse update(UserRequest user);
+    UserResponse update(Long id, UserRequest user);
 
     UserResponse create(UserRequest user);
 
     void delete(Long id);
+
+    boolean isOwner(String username, Long userId);
 
 }

@@ -1,9 +1,6 @@
 package taskmanagementsystem.mappers;
 
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.MappingConstants;
-import org.mapstruct.ReportingPolicy;
+import org.mapstruct.*;
 import org.springframework.data.domain.Page;
 import taskmanagementsystem.dto.task.TaskRequest;
 import taskmanagementsystem.dto.task.TaskResponse;
@@ -17,19 +14,26 @@ import taskmanagementsystem.model.user.User;
 )
 public interface TaskMapper {
 
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "author", ignore = true)
+    @Mapping(target = "comments", source = "comments")
+    void updateTaskFromDto(TaskRequest taskRequest, @MappingTarget Task task);
+
+
     @Mapping(target = "author", source = "task.author.username")
     TaskResponse toTaskResponse(Task task);
 
     default Page<TaskResponse> toTaskResponsePage(Page<Task> tasks) {
         return tasks.map(this::toTaskResponse);
     }
-
     @Mapping(target = "author", ignore = true)
-    Task toEntity(TaskRequest taskRequest);
+    @Mapping(target = "comments", source = "comments")
+    Task toEntity(TaskRequest dto);
+
 
     TaskRequest toTaskRequest(Task task);
 
-    // Явное определение метода для преобразования User в String (username)
+
     default String map(User user) {
         return user != null ? user.getUsername() : null;
     }

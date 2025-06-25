@@ -1,7 +1,6 @@
 package taskmanagementsystem.mappers;
 
 import org.mapstruct.*;
-
 import taskmanagementsystem.dto.user.UserRequest;
 import taskmanagementsystem.dto.user.UserResponse;
 import taskmanagementsystem.model.user.User;
@@ -12,7 +11,7 @@ public interface UserMapper {
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "username", source = "username")
     @Mapping(target = "email", source = "email")
-    @Mapping(target = "password", ignore = true)
+    @Mapping(target = "password", source = "password")
     User updateUserFromDto(UserRequest userDto, @MappingTarget User existingUser);
 
 
