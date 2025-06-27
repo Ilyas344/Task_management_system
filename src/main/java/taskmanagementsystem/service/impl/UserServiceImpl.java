@@ -1,6 +1,5 @@
 package taskmanagementsystem.service.impl;
 
-import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -9,17 +8,17 @@ import org.springframework.transaction.annotation.Transactional;
 import taskmanagementsystem.dto.user.RoleDto;
 import taskmanagementsystem.dto.user.UserRequest;
 import taskmanagementsystem.dto.user.UserResponse;
-import taskmanagementsystem.mappers.RoleMapper;
 import taskmanagementsystem.mappers.UserMapper;
 import taskmanagementsystem.model.exception.ResourceNotFoundException;
 import taskmanagementsystem.model.user.Role;
+import taskmanagementsystem.model.user.RoleEnum;
 import taskmanagementsystem.model.user.User;
 import taskmanagementsystem.repository.RoleRepository;
 import taskmanagementsystem.repository.UserRepository;
 import taskmanagementsystem.service.UserService;
 
-import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -83,13 +82,11 @@ public class UserServiceImpl implements UserService {
         User user = userMap.userDtoMapper(userDto);
 
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+        Set<RoleEnum> roleNames = userDto.getRole().stream()
+                .map(RoleDto::name)
+                .collect(Collectors.toSet());
 
-        Set<Role> roles = new HashSet<>();
-        for (RoleDto roleDto : userDto.getRole()) {
-            Role role = roleRepository.findByName(roleDto.name())
-                    .orElseThrow(() -> new EntityNotFoundException("Role " + roleDto.name() + " not found"));
-            roles.add(role);
-        }
+        Set<Role> roles = roleRepository.findByNameIn(roleNames);
 
         user.setRoles(roles);
 

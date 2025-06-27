@@ -3,9 +3,9 @@ spring:
   application:
     name: Task-management-system
   datasource:
-    url: jdbc:postgresql://localhost:5432/postgres
-    username: postgres
-    password: postgres
+    url: jdbc:postgresql://localhost:${DB_PORT}/${POSTGRES_DB}
+    username: ${POSTGRES_USER}
+    password: ${POSTGRES_PASSWORD}
     driver-class-name: org.postgresql.Driver
 
   jpa:
@@ -16,9 +16,9 @@ spring:
 
 security:
   jwt:
-    secret: adadafllbddlfkgmlafvssdsdsxccxcvddgbxcvvr
-    tokenExpiration: 600000
-    refreshTokenExpiration: 6000000
+    secret: ${JWT_SECRET}
+    tokenExpiration: ${TOKEN_EXPIRATION}
+    refreshTokenExpiration: ${REFRESH_TOKEN_EXPIRATION}
 springdoc:
   api-docs:
     enabled: true

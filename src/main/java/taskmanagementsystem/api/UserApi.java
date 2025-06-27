@@ -45,7 +45,7 @@ public interface UserApi {
 
     })
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("{id}")
     ResponseEntity<UserResponse> getById(@PathVariable Long id);
 
